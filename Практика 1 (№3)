@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        // Ввод размера массива
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите размер массива: ");
+        int size = scanner.nextInt();
+
+        // Создание массива
+        int[] array = new int[size];
+
+        // Ввод элементов массива
+        System.out.println("Введите элементы массива: ");
+        for (int i = 0; i < size; i++) {
+            System.out.print("Элемент " + (i+1) + ": ");
+            array[i] = scanner.nextInt();
+        }
+
+        // Сумма элементов массива
+        int sum = 0;
+        for (int i = 0; i < size; i++) {
+            sum += array[i];
+        }
+
+        // Среднее арифметическое элементов массива
+        double average = (double) sum/size;
+
+        // Вывод результатов
+        System.out.println("Сумма элементов массива: " + sum);
+        System.out.println("Среднее арифметическое элементов массива: " + average);
+    }
+}
