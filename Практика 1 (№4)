@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class ArraySumMinMax {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Введите размер массива: ");
+        int size = scanner.nextInt();
+
+        int[] array = new int[size];
+
+        // Ввод массива
+        for (int i = 0; i < size; i++) {
+            System.out.print("Введите элемент массива: ");
+            array[i] = scanner.nextInt();
+        }
+
+        // Вычисление суммы элементов с помощью цикла do while
+        int sumDoWhile = 0;
+        int indexDoWhile = 0;
+        do {
+            sumDoWhile += array[indexDoWhile];
+            indexDoWhile++;
+        } while (indexDoWhile < size);
+
+        // Вычисление суммы элементов с помощью цикла while
+        int sumWhile = 0;
+        int indexWhile = 0;
+        while (indexWhile < size) {
+            sumWhile += array[indexWhile];
+            indexWhile++;
+        }
+
+        // Поиск максимального и минимального элементов
+        int max = array[0];
+        int min = array[0];
+        for (int i = 1; i < size; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+
+        // Вывод результатов
+        System.out.println("Сумма элементов (do while): " + sumDoWhile);
+        System.out.println("Сумма элементов (while): " + sumWhile);
+        System.out.println("Максимальный элемент: " + max);
+        System.out.println("Минимальный элемент: " + min);
+    }
+}
