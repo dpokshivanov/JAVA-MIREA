@@ -1,0 +1,139 @@
+public enum Size {
+    XXS(32),
+    XS(34),
+    S(36),
+    M(38),
+    L(40);
+
+    private int euroSize;
+
+    Size(int euroSize) {
+        this.euroSize = euroSize;
+    }
+
+    public int getEuroSize() {
+        return euroSize;
+    }
+
+    public String getDescription() {
+        if (this == XXS) {
+            return "Детский размер";
+        }
+        return "Взрослый размер";
+    }
+}
+
+public interface MenClothing {
+    void dressMan();
+}
+
+public interface WomenClothing {
+    void dressWomen();
+}
+
+public abstract class Clothes {
+    protected Size size;
+    protected double cost;
+    protected String color;
+}
+
+public class TShirt extends Clothes implements MenClothing, WomenClothing {
+    public TShirt(Size size, double cost, String color) {
+        this.size = size;
+        this.cost = cost;
+        this.color = color;
+    }
+
+    @Override
+    public void dressMan() {
+        System.out.println("Одеваем мужчину в футболку");
+    }
+
+    @Override
+    public void dressWomen() {
+        System.out.println("Одеваем женщину в футболку");
+    }
+}
+
+public class Pants extends Clothes implements MenClothing, WomenClothing {
+    public Pants(Size size, double cost, String color) {
+        this.size = size;
+        this.cost = cost;
+        this.color = color;
+    }
+
+    @Override
+    public void dressMan() {
+        System.out.println("Одеваем мужчину в штаны");
+    }
+
+    @Override
+    public void dressWomen() {
+        System.out.println("Одеваем женщину в штаны");
+    }
+}
+
+public class Skirt extends Clothes implements WomenClothing {
+    public Skirt(Size size, double cost, String color) {
+        this.size = size;
+        this.cost = cost;
+        this.color = color;
+    }
+
+    @Override
+    public void dressWomen() {
+        System.out.println("Одеваем женщину в юбку");
+    }
+}
+
+public class Tie extends Clothes implements MenClothing {
+    public Tie(Size size, double cost, String color) {
+        this.size = size;
+        this.cost = cost;
+        this.color = color;
+    }
+
+    @Override
+    public void dressMan() {
+        System.out.println("Одеваем мужчину в галстук");
+    }
+}
+
+public class Atelier {
+    public void dressWomen(Clothes[] clothes) {
+        for (Clothes item : clothes) {
+            if (item instanceof WomenClothing) {
+                ((WomenClothing) item).dressWomen();
+            }
+        }
+    }
+
+    public void dressMan(Clothes[] clothes) {
+        for (Clothes item : clothes) {
+            if (item instanceof MenClothing) {
+                ((MenClothing) item).dressMan();
+            }
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        TShirt tShirt = new TShirt(Size.M, 20.0, "Red");
+        Pants pants = new Pants(Size.L, 30.0, "Blue");
+        Skirt skirt = new Skirt(Size.XS, 25.0, "Black");
+        Tie tie = new Tie(Size.S, 15.0, "Green");
+
+        Clothes[] clothes = {tShirt, pants, skirt, tie};
+
+        Atelier atelier = new Atelier();
+        atelier.dressWomen(clothes);
+        atelier.dressMan(clothes);
+
+        System.out.println(Size.XXS.getDescription());
+
+        for (Size size : Size.values()) {
+            System.out.println(size + " - " + size.getEuroSize());
+        }
+    }
+}
