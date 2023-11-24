@@ -1,0 +1,55 @@
+public class Ball {
+    double x;
+    double y;
+
+    public Ball(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public Ball(){}
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setXY(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public int setXYSpeed(int count){
+        return count;
+    }
+    public void move(double xDisp, double yDisp){
+        x += xDisp;
+        y += yDisp;
+    }
+
+    @Override
+    public String toString() {
+        return "Ball @ ("+this.x+", "+this.y+").";
+    }
+}
+
+public class TestBall {
+    public static void main(String[] args) {
+        Ball b1 = new Ball(100, 100);
+        System.out.println(b1);
+        b1.move(30, 15);
+        System.out.println(b1.setXYSpeed(20));
+        System.out.println(b1);
+    }
+}
