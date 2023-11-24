@@ -1,0 +1,50 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.Random;
+
+public class RandomShapes extends JFrame {
+    private JPanel shapePanel;
+
+    public RandomShapes() {
+        super("Random Shapes");
+        setSize(500, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        shapePanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Random random = new Random();
+                for (int i = 0; i < 20; i++) {
+                    int shapeType = random.nextInt(3);
+                    int x = random.nextInt(getWidth() - 100);
+                    int y = random.nextInt(getHeight() - 100);
+                    int width = random.nextInt(100) + 50;
+                    int height = random.nextInt(100) + 50;
+                    Color color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+
+                    if (shapeType == 0) {
+                        g.setColor(color);
+                        g.fillRect(x, y, width, height);
+                    } else if (shapeType == 1) {
+                        g.setColor(color);
+                        g.fillOval(x, y, width, height);
+                    } else if (shapeType == 2) {
+                        int[] xPoints = {x, x + width/2, x + width};
+                        int[] yPoints = {y + height, y, y + height};
+                        g.setColor(color);
+                        g.fillPolygon(xPoints, yPoints, 3);
+                    }
+                }
+            }
+        };
+
+        setContentPane(shapePanel);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new RandomShapes();
+    }
+}
