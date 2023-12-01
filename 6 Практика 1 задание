@@ -1,0 +1,82 @@
+interface Movable {
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
+}
+
+class MovablePoint implements Movable {
+    private int x;
+    private int y;
+
+    public MovablePoint(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public void moveUp() {
+        y++;
+        System.out.println("Moved up: x=" + x + ", y=" + y);
+    }
+
+    @Override
+    public void moveDown() {
+        y--;
+        System.out.println("Moved down: x=" + x + ", y=" + y);
+    }
+
+    @Override
+    public void moveLeft() {
+        x--;
+        System.out.println("Moved left: x=" + x + ", y=" + y);
+    }
+
+    @Override
+    public void moveRight() {
+        x++;
+        System.out.println("Moved right: x=" + x + ", y=" + y);
+    }
+}
+
+class MovableCircle implements Movable {
+    private int radius;
+    private MovablePoint center;
+
+    public MovableCircle(int x, int y, int radius) {
+        this.center = new MovablePoint(x, y);
+        this.radius = radius;
+    }
+
+    @Override
+    public void moveUp() {
+        center.moveUp();
+    }
+
+    @Override
+    public void moveDown() {
+        center.moveDown();
+    }
+
+    @Override
+    public void moveLeft() {
+        center.moveLeft();
+    }
+
+    @Override
+    public void moveRight() {
+        center.moveRight();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MovablePoint point = new MovablePoint(0, 0);
+        point.moveUp(); // Output: Moved up: x=0, y=1
+        point.moveRight(); // Output: Moved right: x=1, y=1
+
+        MovableCircle circle = new MovableCircle(0, 0, 5);
+        circle.moveDown(); // Output: Moved down: x=0, y=-1
+        circle.moveLeft(); // Output: Moved left: x=-1, y=-1
+    }
+}
