@@ -1,0 +1,93 @@
+// Интерфейс Movable
+interface Movable {
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
+}
+
+// Класс MovablePoint
+class MovablePoint implements Movable {
+    // Поля класса
+    int x;
+    int y;
+    int xSpeed;
+    int ySpeed;
+
+    // Конструктор класса
+    public MovablePoint(int x, int y, int xSpeed, int ySpeed) {
+        this.x = x;
+        this.y = y;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+    }
+
+    // Реализация методов интерфейса Movable
+    public void moveUp() {
+        y -= ySpeed;
+    }
+
+    public void moveDown() {
+        y += ySpeed;
+    }
+
+    public void moveLeft() {
+        x -= xSpeed;
+    }
+
+    public void moveRight() {
+        x += xSpeed;
+    }
+}
+
+// Класс MovableRectangle
+class MovableRectangle implements Movable {
+    // Поля класса
+    private MovablePoint topLeft;
+    private MovablePoint bottomRight;
+
+    // Конструктор класса
+    public MovableRectangle(int x1, int y1, int x2, int y2, int xSpeed, int ySpeed) {
+        topLeft = new MovablePoint(x1, y1, xSpeed, ySpeed);
+        bottomRight = new MovablePoint(x2, y2, xSpeed, ySpeed);
+    }
+
+    // Реализация методов интерфейса Movable
+    public void moveUp() {
+        topLeft.moveUp();
+        bottomRight.moveUp();
+    }
+
+    public void moveDown() {
+        topLeft.moveDown();
+        bottomRight.moveDown();
+    }
+
+    public void moveLeft() {
+        topLeft.moveLeft();
+        bottomRight.moveLeft();
+    }
+
+    public void moveRight() {
+        topLeft.moveRight();
+        bottomRight.moveRight();
+    }
+}
+
+// Основной класс
+public class Main {
+    public static void main(String[] args) {
+        // Создание движущегося прямоугольника и перемещение
+        MovableRectangle rect = new MovableRectangle(0, 0, 5, 5, 1, 1);
+        System.out.println("Исходное положение:");
+        System.out.println("Верхняя левая точка: (" + rect.topLeft.x + ", " + rect.topLeft.y + ")");
+        System.out.println("Нижняя правая точка: (" + rect.bottomRight.x + ", " + rect.bottomRight.y + ")");
+
+        rect.moveUp();
+        rect.moveRight();
+
+        System.out.println("\nПосле перемещения:");
+        System.out.println("Верхняя левая точка: (" + rect.topLeft.x + ", " + rect.topLeft.y + ")");
+        System.out.println("Нижняя правая точка: (" + rect.bottomRight.x + ", " + rect.bottomRight.y + ")");
+    }
+}
