@@ -1,0 +1,39 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+class ImagePanel extends JPanel {
+    private Image image;
+    
+    public ImagePanel(String imagePath) {
+        image = Toolkit.getDefaultToolkit().getImage(imagePath);
+    }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Please specify the path to the image.");
+            return;
+        }
+        
+        String imagePath = args[0];
+        
+        JFrame frame = new JFrame("Image Viewer");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        ImagePanel imagePanel = new ImagePanel(imagePath);
+        frame.add(imagePanel);
+        
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
