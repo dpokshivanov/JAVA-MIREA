@@ -1,0 +1,67 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> arrayList = new ArrayList<>();
+        List<Integer> linkedList = new LinkedList<>();
+
+        // Вставка элементов
+        long startTime = System.nanoTime();
+        for (int i = 0; i < 100000; i++) {
+            arrayList.add(i);
+        }
+        long arrayListInsertionTime = System.nanoTime() - startTime;
+        System.out.println("Время вставки элементов в ArrayList: " + arrayListInsertionTime + " наносекунд");
+
+        startTime = System.nanoTime();
+        for (int i = 0; i < 100000; i++) {
+            linkedList.add(i);
+        }
+        long linkedListInsertionTime = System.nanoTime() - startTime;
+        System.out.println("Время вставки элементов в LinkedList: " + linkedListInsertionTime + " наносекунд");
+
+        // Удаление элементов
+        startTime = System.nanoTime();
+        for (int i = arrayList.size() - 1; i >= 0; i--) {
+            arrayList.remove(i);
+        }
+        long arrayListDeletionTime = System.nanoTime() - startTime;
+        System.out.println("Время удаления элементов из ArrayList: " + arrayListDeletionTime + " наносекунд");
+
+        startTime = System.nanoTime();
+        for (int i = linkedList.size() - 1; i >= 0; i--) {
+            linkedList.remove(i);
+        }
+        long linkedListDeletionTime = System.nanoTime() - startTime;
+        System.out.println("Время удаления элементов из LinkedList: " + linkedListDeletionTime + " наносекунд");
+
+        // Добавление элементов по индексу
+        startTime = System.nanoTime();
+        for (int i = 0; i < 100000; i++) {
+            arrayList.add(0, i);
+        }
+        long arrayListAdditionTime = System.nanoTime() - startTime;
+        System.out.println("Время добавления элементов в начало ArrayList: " + arrayListAdditionTime + " наносекунд");
+
+        startTime = System.nanoTime();
+        for (int i = 0; i < 100000; i++) {
+            linkedList.add(0, i);
+        }
+        long linkedListAdditionTime = System.nanoTime() - startTime;
+        System.out.println("Время добавления элементов в начало LinkedList: " + linkedListAdditionTime + " наносекунд");
+
+        // Поиск элементов по образцу
+        int searchElement = 50000;
+        startTime = System.nanoTime();
+        arrayList.contains(searchElement);
+        long arrayListSearchTime = System.nanoTime() - startTime;
+        System.out.println("Время поиска элемента в ArrayList: " + arrayListSearchTime + " наносекунд");
+
+        startTime = System.nanoTime();
+        linkedList.contains(searchElement);
+        long linkedListSearchTime = System.nanoTime() - startTime;
+        System.out.println("Время поиска элемента в LinkedList: " + linkedListSearchTime + " наносекунд");
+    }
+}
