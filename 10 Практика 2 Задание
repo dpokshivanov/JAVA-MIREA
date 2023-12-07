@@ -1,0 +1,96 @@
+import java.util.*;
+
+class Student {
+    private int iDNumber;
+    private String name;
+    private double GPA; // средний балл
+    
+    public Student(int iDNumber, String name, double GPA) {
+        this.iDNumber = iDNumber;
+        this.name = name;
+        this.GPA = GPA;
+    }
+    
+    public int getIDNumber() {
+        return iDNumber;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public double getGPA() {
+        return GPA;
+    }
+    
+    @Override
+    public String toString() {
+        return "Student{" +
+                "iDNumber=" + iDNumber +
+                ", name='" + name + '\'' +
+                ", GPA=" + GPA +
+                '}';
+    }
+}
+
+class SortingStudentsByGPA {
+    private Student[] students;
+    
+    public void setArray(Student[] students) {
+        this.students = students;
+    }
+    
+    public void quicksort(int low, int high, Comparator<Student> comparator) {
+        if (low < high) {
+            int pi = partition(low, high, comparator);
+            quicksort(low, pi - 1, comparator);
+            quicksort(pi + 1, high, comparator);
+        }
+    }
+    
+    private int partition(int low, int high, Comparator<Student> comparator) {
+        Student pivot = students[high];
+        int i = low - 1;
+        
+        for (int j = low; j < high; j++) {
+            if (comparator.compare(students[j], pivot) > 0) {
+                i++;
+                swap(i, j);
+            }
+        }
+        
+        swap(i + 1, high);
+        return i + 1;
+    }
+    
+    private void swap(int i, int j) {
+        Student temp = students[i];
+        students[i] = students[j];
+        students[j] = temp;
+    }
+    
+    public void outArray() {
+        for (Student student : students) {
+            System.out.println(student);
+        }
+    }
+    
+    public static void main(String[] args) {
+        Student[] students = {
+                new Student(103, "Alice", 4.0),
+                new Student(101, "Bob", 3.5),
+                new Student(105, "Charlie", 3.8),
+                new Student(102, "David", 4.2),
+                new Student(104, "Eve", 4.1)
+        };
+        
+        SortingStudentsByGPA sorter = new SortingStudentsByGPA();
+        sorter.setArray(students);
+        
+        // Сортировка по среднему баллу студентов в порядке убывания
+        sorter.quicksort(0, students.length - 1, Comparator.comparing(Student::getGPA).reversed());
+        
+        System.out.println("Отсортированный массив студентов:");
+        sorter.outArray();
+    }
+}
