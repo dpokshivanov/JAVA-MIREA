@@ -1,0 +1,49 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Student {
+    private String name;
+    private Date dateOfBirth;
+
+    public Student(String name, Date dateOfBirth) {
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getFormattedDateOfBirth(String dateFormatPattern) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatPattern);
+        return dateFormat.format(dateOfBirth);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+        // Создание объекта типа Student
+        String name = "Иванов Иван";
+        Date dateOfBirth = null;
+        try {
+            dateOfBirth = dateFormat.parse("01.01.2000");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Student student = new Student(name, dateOfBirth);
+
+        // Вывод информации о студенте
+        System.out.println(student);
+
+        // Вывод даты рождения в разных форматах
+        System.out.println("Полная дата рождения: " + student.getFormattedDateOfBirth("dd.MM.yyyy"));
+        System.out.println("Короткая дата рождения: " + student.getFormattedDateOfBirth("dd.MM.yy"));
+    }
+}
