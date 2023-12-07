@@ -1,0 +1,13 @@
+import java.util.Date;
+
+public class Main {
+    public static void main(String[] args) {
+        String surname = "Покшиванов"; // Фамилия разработчика
+        Date issueDate = new Date(); // Дата и время получения задания
+        Date currentDate = new Date(); // Текущая дата и время
+
+        System.out.println("Фамилия разработчика: " + surname);
+        System.out.println("Дата и время получения задания: " + issueDate);
+        System.out.println("Текущая дата и время: " + currentDate);
+    }
+}
