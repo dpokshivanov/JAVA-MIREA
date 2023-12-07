@@ -1,0 +1,58 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class AnimationPanel extends JPanel {
+    private Image[] frames;
+    private int currentFrameIndex;
+    
+    public AnimationPanel(String[] framePaths) {
+        frames = new Image[framePaths.length];
+        
+        for (int i = 0; i < framePaths.length; i++) {
+            frames[i] = Toolkit.getDefaultToolkit().getImage(framePaths[i]);
+        }
+        
+        currentFrameIndex = 0;
+        
+        Timer timer = new Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentFrameIndex = (currentFrameIndex + 1) % frames.length;
+                repaint();
+            }
+        });
+        timer.start();
+    }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(frames[currentFrameIndex], 0, 0, getWidth(), getHeight(), this);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        String[] framePaths = {
+            "frame1.png",
+            "frame2.png",
+            "frame3.png",
+            "frame4.png"
+        };
+        
+        JFrame frame = new JFrame("Animation Viewer");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        AnimationPanel animationPanel = new AnimationPanel(framePaths);
+        frame.add(animationPanel);
+        
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
