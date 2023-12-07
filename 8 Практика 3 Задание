@@ -1,0 +1,20 @@
+public class Main {
+
+    public static void printNumbers(int a, int b) {
+        if (a < b) {
+            System.out.println(a);
+            printNumbers(a + 1, b);
+        } else if (a > b) {
+            System.out.println(a);
+            printNumbers(a - 1, b);
+        } else {
+            System.out.println(a);
+        }
+    }
+
+    public static void main(String[] args) {
+        int a = 5;
+        int b = 2;
+        printNumbers(a, b);
+    }
+}
