@@ -1,0 +1,86 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class GuessingGame {
+    private static final int MAX_GUESSES = 3;
+    private static final int RANDOM_NUMBER = (int) (Math.random() * 21); // Случайное число от 0 до 20
+    private static int remainingGuesses = MAX_GUESSES;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Угадай число");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 200);
+        frame.setLayout(new BorderLayout());
+
+        JLabel promptLabel = new JLabel("Введите число от 0 до 20:");
+        JTextField inputField = new JTextField();
+        JButton submitButton = new JButton("Проверить");
+
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = inputField.getText();
+                int guessedNumber;
+
+                try {
+                    guessedNumber = Integer.parseInt(input);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "Недопустимое значение!", "Ошибка", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (guessedNumber == RANDOM_NUMBER) {
+                    JOptionPane.showMessageDialog(frame, "Поздравляю! Вы угадали число " + RANDOM_NUMBER + "!", "Победа!", JOptionPane.INFORMATION_MESSAGE);
+                    System.exit(0);
+                } else {
+                    remainingGuesses--;
+                    if (remainingGuesses > 0) {
+                        String message = "Неверно! ";
+                        if (guessedNumber < RANDOM_NUMBER) {
+                            message += "Число больше, чем " + guessedNumber + ".";
+                        } else {
+                            message += "Число меньше, чем " + guessedNumber + ".";
+                        }
+
+                        JOptionPane.showMessageDialog(frame, message, "Попробуйте еще раз", JOptionPane.WARNING_MESSAGE);
+                        inputField.setText("");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Вы исчерпали все попытки! Загаданное число было " + RANDOM_NUMBER + ".", "Поражение!", JOptionPane.ERROR_MESSAGE);
+                        System.exit(0);
+                    }
+                }
+            }
+        });
+
+        JPanel centerPanel = new JPanel();
+        centerPanel.add(promptLabel);
+        centerPanel.add(inputField);
+        centerPanel.add(submitButton);
+
+        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(createAreaPanel("Добро пожаловать в ЮАО"), BorderLayout.SOUTH);
+        frame.add(createAreaPanel("Добро пожаловать в САО"), BorderLayout.NORTH);
+        frame.add(createAreaPanel("Добро пожаловать в ЗАО"), BorderLayout.WEST);
+        frame.add(createAreaPanel("Добро пожаловать в ВАО"), BorderLayout.EAST);
+
+        frame.setVisible(true);
+    }
+
+    private static JPanel createAreaPanel(String message) {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.lightGray);
+
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {                
+              JOptionPane.showMessageDialog(panel, message, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        return panel;
+    }
+}
