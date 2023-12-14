@@ -1,0 +1,50 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MenuSelectionProgram {
+    public static void main(String[] args) {
+        String[] countries = {"Австралия", "Германия", "Италия", "Испания", "Франция"};
+
+        JFrame frame = new JFrame("Выбор меню");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 200);
+        frame.setLayout(new FlowLayout());
+
+        JLabel infoLabel = new JLabel("Выберите страну:");
+        JComboBox<String> menuComboBox = new JComboBox<>(countries);
+
+        JButton showInfoButton = new JButton("Показать информацию");
+
+        // Обработчик события кнопки
+        showInfoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedCountry = (String) menuComboBox.getSelectedItem();
+                String countryInfo = "";
+
+                // Получение информации о выбранной стране
+                // В данном примере используем некоторые примеры информации
+                if (selectedCountry.equals("Австралия")) {
+                    countryInfo = "Столица: Канберра\nОфициальный язык: Английский\nВалюта: Австралийский доллар";
+                } else if (selectedCountry.equals("Германия")) {
+                    countryInfo = "Столица: Берлин\nОфициальный язык: Немецкий\nВалюта: Евро";
+                } else if (selectedCountry.equals("Италия")) {
+                    countryInfo = "Столица: Рим\nОфициальный язык: Итальянский\nВалюта: Евро";
+                } else if (selectedCountry.equals("Испания")) {
+                    countryInfo = "Столица: Мадрид\nОфициальный язык: Испанский\nВалюта: Евро";
+                } else if (selectedCountry.equals("Франция")) {
+                    countryInfo = "Столица: Париж\nОфициальный язык: Французский\nВалюта: Евро";
+                }
+
+                JOptionPane.showMessageDialog(frame, countryInfo, "Информация о стране", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        frame.add(infoLabel);
+        frame.add(menuComboBox);
+        frame.add(showInfoButton);
+        frame.setVisible(true);
+    }
+}
