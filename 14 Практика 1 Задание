@@ -1,0 +1,42 @@
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class StringManipulationApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Введите строку:");
+        String input = scanner.nextLine();
+        
+        System.out.println("Выберите действие:");
+        System.out.println("1. Разбить строку на слова");
+        System.out.println("2. Найти все числа в строке");
+        System.out.println("3. Заменить все гласные буквы на символ '*'");
+        int choice = scanner.nextInt();
+        
+        switch (choice) {
+            case 1:
+                String[] words = input.split("\\s+");
+                System.out.println("Разбитая строка на слова: " + Arrays.toString(words));
+                break;
+            case 2:
+                Pattern numberPattern = Pattern.compile("\\d+");
+                Matcher numberMatcher = numberPattern.matcher(input);
+                while (numberMatcher.find()) {
+                    System.out.println("Найдено число: " + numberMatcher.group());
+                }
+                break;
+            case 3:
+                String replacedString = input.replaceAll("[aeiouAEIOU]", "*");
+                System.out.println("Строка с замененными гласными буквами: " + replacedString);
+                break;
+            default:
+                System.out.println("Неверный выбор!");
+                break;
+        }
+        
+        scanner.close();
+    }
+}
